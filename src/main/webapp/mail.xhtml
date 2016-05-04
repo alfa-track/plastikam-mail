@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Список резюме</title>
+</h:head>
+
+<h:body>
+    <div id="main">
+        <h:form id="mainForm">
+
+            <p:commandButton icon="fa fa-refresh" value="Получить почту" style="float: right;" action="#{mails.process}" update="@all"/>
+
+            <p:commandButton icon="fa fa-file-excel-o" value="Выгрузка в XLS" style="float: right;" ajax="false">
+                <p:dataExporter type="xls" target=":mainForm:emails" fileName="mails"/>
+            </p:commandButton>
+
+            <br/>
+
+            <p:dataTable id="emails" filteredValue="#{mails.emailsFiltered}" value="#{mails.emails}" var="email" emptyMessage="..." style="margin-top: 10px;" paginator="true">
+
+                <p:column style="width:16px" exportable="false">
+                    <p:rowToggler/>
+                </p:column>
+
+                <f:facet name="header">
+                    <h:outputText value="Входящие письма" style="float: center;"/>
+                </f:facet>
+                1
+                <p:column headerText="Дата" width="143" sortBy="#{email.date}">
+                    <h:outputText value="#{email.date}" style="text-align: center; display: block;">
+                        <f:convertDateTime pattern="yyyy-MM-dd hh:mm"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Отправитель" filterBy="#{email.sender}" sortBy="#{email.sender}" filterMatchMode="contains">
+                    <h:outputText value="#{email.sender}"/>
+                </p:column>
+
+                <p:column headerText="Источник" filterBy="#{email.source}" sortBy="#{email.source}" filterMatchMode="contains">
+                    <h:outputText value="#{email.source}"/>
+                </p:column>
+
+                <p:column headerText="Решение программы" sortBy="#{email.resolution}" filterBy="#{email.resolution}" filterMatchMode="contains">
+                    <h:outputText value="#{email.resolution}"/>
+                </p:column>
+
+                <p:rowExpansion>
+
+                </p:rowExpansion>
+
+            </p:dataTable>
+        </h:form>
+    </div>
+</h:body>
+
+</html>
+
