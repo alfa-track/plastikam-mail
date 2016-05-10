@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Список резюме</title>
+    <title>Почтопересылалка</title>
 </h:head>
 
 <h:body>
@@ -50,7 +50,7 @@
                 </p:column>
 
                 <p:rowExpansion>
-
+                    <h:outputText value="#{email.messageBody}"/>
                 </p:rowExpansion>
 
             </p:dataTable>

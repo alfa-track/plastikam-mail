@@ -1,5 +1,6 @@
 package ru.plastikam.mail.model;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
@@ -12,7 +13,8 @@ public abstract class Email extends AbstractEntity {
 
     protected String subject;
 
-    protected String body;
+    @Column(columnDefinition = "TEXT")
+    protected String messageBody;
 
     protected Date date;
 
@@ -45,12 +47,12 @@ public abstract class Email extends AbstractEntity {
         this.subject = subject;
     }
 
-    public String getBody() {
-        return body;
+    public String getMessageBody() {
+        return messageBody;
     }
 
-    public void setBody(String body) {
-        this.body = body;
+    public void setMessageBody(String messageBody) {
+        this.messageBody = messageBody;
     }
 
     public Date getDate() {

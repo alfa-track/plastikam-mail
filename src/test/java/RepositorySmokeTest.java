@@ -5,7 +5,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.plastikam.mail.EmailApplication;
 import ru.plastikam.mail.model.EmailIn;
-import ru.plastikam.mail.repository.EmailRepository;
+import ru.plastikam.mail.repository.EmailInRepository;
 
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertThat;
 public class RepositorySmokeTest {
 
     @Autowired
-    EmailRepository userRepository;
+    EmailInRepository userRepository;
 
     @Test
     public void shouldInjectRepository() {

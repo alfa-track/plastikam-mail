@@ -15,6 +15,7 @@ import ru.plastikam.mail.repository.EmailOutRepository;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMultipart;
 import javax.mail.search.FlagTerm;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -64,9 +65,13 @@ public class Receiver {
 
                 emailIn.setSender(from.getAddress());
                 emailIn.setSubject(messages[i].getSubject());
-//                emailIn.setBody(messages[i].getContent().toString());
+                emailIn.setMessageBody("" + messages[i].getContent().toString());
+                emailIn.setMessageBody("" + getTextFromMessage(messages[i]));
 
                 result.add(emailIn);
+
+//                messages[i].get
+//                messages[i].setFlag(new Flags.Flag() );
 
                 messages[i].setFlag(Flags.Flag.SEEN, true);
             }
@@ -79,6 +84,36 @@ public class Receiver {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String getTextFromMessage(Message message) throws Exception {
+        String result = "";
+        if (message.isMimeType("text/plain")) {
+            result = message.getContent().toString();
+        } else if (message.isMimeType("multipart/*")) {
+            MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
+            result = getTextFromMimeMultipart(mimeMultipart);
+        }
+        return result;
+    }
+
+    private String getTextFromMimeMultipart(
+            MimeMultipart mimeMultipart) throws Exception {
+        String result = "";
+        int count = mimeMultipart.getCount();
+        for (int i = 0; i < count; i++) {
+            BodyPart bodyPart = mimeMultipart.getBodyPart(i);
+            if (bodyPart.isMimeType("text/plain")) {
+                result = result + "\n" + bodyPart.getContent();
+                break; // without break same text appears twice in my tests
+            } else if (bodyPart.isMimeType("text/html")) {
+                String html = (String) bodyPart.getContent();
+                result = result + "\n" + org.jsoup.Jsoup.parse(html).text();
+            } else if (bodyPart.getContent() instanceof MimeMultipart) {
+                result = result + getTextFromMimeMultipart((MimeMultipart) bodyPart.getContent());
+            }
+        }
+        return result;
     }
 
     public void processMail() {
@@ -95,7 +130,6 @@ public class Receiver {
     }
 
     private void process(EmailIn emailIn) {
-        1
         EmailOut emailOut = translate(emailIn);
 
         if (emailInRepository.countBySender(emailIn.getSender()) == 0) {
@@ -117,15 +151,15 @@ public class Receiver {
         String message = "";
 
         message += "[TYPE]: 3\n\n";
-        message += "[SOURCE]: " + emailIn.getSource() + "\n\n";
-        message += "[TICKET]:  " + "\n\n";
-        message += "[FORM]: " + "\n\n";
+//        message += "[SOURCE]: " + emailIn.getSource() + "\n\n";
+        message += "[TICKET]:  " + ((long) (Math.random() * Long.MAX_VALUE)) + "\n\n";
+//        message += "[FORM]: " + "\n\n";
         message += "[DATE]: " + new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(emailIn.getDate()) + "\n\n";
-        message += "[ROISTATID]: " + "\n\n";
+        message += "[ROISTATID]: " + emailIn.getSource() + "\n\n";
         message += "[NAME]: " + "\n\n";
-        message += "[PHONE]: " + "\n\n";
+//        message += "[PHONE]: " + "\n\n";
         message += "[EMAIL]: " + emailIn.getSender() + "\n\n";
-        message += "[BODY]: " + emailIn.getBody() + "\n\n";
+        message += "[BODY]: " + emailIn.getMessageBody() + "\n\n";
 
         EmailOut emailOut = new EmailOut(message);
         return emailOut;
@@ -145,7 +179,7 @@ public class Receiver {
             apacheEmail.addTo(Config.Mail.Out.recipient);
             apacheEmail.setStartTLSRequired(true);
 
-            apacheEmail.setTextMsg(emailOut.getBody());
+            apacheEmail.setTextMsg(emailOut.getMessageBody());
             apacheEmail.send();
 
         } catch (Exception e) {

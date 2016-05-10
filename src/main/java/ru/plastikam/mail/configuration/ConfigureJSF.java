@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
+import org.springframework.web.context.ContextLoaderListener;
 import ru.plastikam.mail.sys.ViewScope;
 
 import javax.servlet.ServletContext;
@@ -20,7 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Configuration
-@Order(1)
+//@Order(1)
 public class ConfigureJSF implements ServletContextInitializer {
     private static final Logger logger = LoggerFactory.getLogger(ConfigureJSF.class);
 
@@ -29,10 +30,25 @@ public class ConfigureJSF implements ServletContextInitializer {
         return new OpenEntityManagerInViewFilter();
     }
 
+//    @Bean
+//    public ContextLoaderListener createContextLoaderListener() {
+//        return new ContextLoaderListener();
+//    }
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
 
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
+        logger.info("Конфигурация JSF ...");
         logger.info("Конфигурация JSF ...");
 
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());

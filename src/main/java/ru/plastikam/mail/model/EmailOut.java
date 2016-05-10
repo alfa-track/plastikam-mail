@@ -6,6 +6,6 @@ import javax.persistence.Entity;
 public class EmailOut extends Email {
 
     public EmailOut(String body) {
-        this.body = body;
+        this.messageBody = body;
     }
 }

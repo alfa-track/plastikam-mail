@@ -1,3 +1,8 @@
+/plastikam-mail.script
+/plastikam-mail.lck
+/plastikam-mail.log
+/plastikam-mail.properties
 .idea/*
 *.iml
+/db
 target
