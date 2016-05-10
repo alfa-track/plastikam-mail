@@ -29,6 +29,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <!--<scope>provided</scope>-->
+            <optional>true</optional>
         </dependency>
 
         <dependency>
@@ -57,18 +58,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.6.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>fluent-hc</artifactId>
-            <version>4.5.2</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
@@ -76,11 +65,14 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -88,6 +80,7 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
@@ -118,12 +111,14 @@
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
-            <!--<scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
             <version>2.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -138,35 +133,41 @@
             <version>5.3</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>primefaces-extensions</artifactId>
-            <version>4.0.0</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.primefaces.extensions</groupId>-->
+        <!--<artifactId>primefaces-extensions</artifactId>-->
+        <!--<version>4.0.0</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+        <!--<groupId>org.primefaces.themes</groupId>-->
+        <!--<artifactId>all-themes</artifactId>-->
+        <!--<version>1.0.10</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.primefaces.themes</groupId>
-            <artifactId>all-themes</artifactId>
+            <artifactId>afterwork</artifactId>
             <version>1.0.10</version>
         </dependency>
 
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.3</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>commons-lang</groupId>-->
+        <!--<artifactId>commons-lang</artifactId>-->
+        <!--<version>2.3</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.mysema.querydsl</groupId>
-            <artifactId>querydsl-jpa</artifactId>
-            <version>3.6.9</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.mysema.querydsl</groupId>-->
+        <!--<artifactId>querydsl-jpa</artifactId>-->
+        <!--<version>3.6.9</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>19.0</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>com.google.guava</groupId>-->
+        <!--<artifactId>guava</artifactId>-->
+        <!--<version>19.0</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>javax.annotation</groupId>
@@ -185,6 +186,7 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>

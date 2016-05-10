@@ -39,17 +39,6 @@ public class ConfigureJSF implements ServletContextInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
 
         logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
-        logger.info("Конфигурация JSF ...");
 
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
         servletContext.setInitParameter("com.sun.faces.expressionFactory", "com.sun.el.ExpressionFactoryImpl");
