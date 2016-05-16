@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<composite:interface>
+
+    <composite:attribute name="name"/>
+    <composite:attribute name="date"/>
+    <composite:attribute name="description"/>
+
+</composite:interface>
+
+<composite:implementation>
+
+    <div style="margin-bottom: 26px;">
+
+        <div>
+            <div style="display: inline-block; font-size: large;">#{cc.attrs.name}</div>
+            <div style="display: inline-block; float: right; margin-top: 5px;">#{cc.attrs.date}</div>
+        </div>
+
+        <p:separator style="margin-top: 1px; margin-bottom: 1px;"/>
+
+        <div style="">#{cc.attrs.description}</div>
+
+        <ul style="margin-top: 5px;">
+            <composite:insertChildren/>
+        </ul>
+
+    </div>
+</composite:implementation>
+
+</html>

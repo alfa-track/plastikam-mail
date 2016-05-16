@@ -1,15 +1,25 @@
 package ru.plastikam.mail.model;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @MappedSuperclass
 public abstract class Email extends AbstractEntity {
 
     protected String sender;
 
-    protected String recipient;
+    public List<Recipient> getRecipients() {
+        return recipients;
+    }
+
+    public void setRecipients(List<Recipient> recipients) {
+        this.recipients = recipients;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    protected List<Recipient> recipients = new ArrayList<>();
 
     protected String subject;
 
@@ -29,14 +39,6 @@ public abstract class Email extends AbstractEntity {
 
     public void setSender(String sender) {
         this.sender = sender;
-    }
-
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
     }
 
     public String getSubject() {

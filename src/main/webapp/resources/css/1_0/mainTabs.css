@@ -1,0 +1,20 @@
+
+.mainTabs .ui-tabs-nav {
+    /*display: none;*/
+}
+
+.mainTabs .ui-tabs-panel {
+    /*padding: 0;*/
+}
+
+.mainTabs .ui-tabs {
+    border: 0px;
+    height: 100%;
+}
+
+.mainTabs {
+    height: 100%;
+    border: 0px;
+    padding: 0px;
+    height: 100vh;
+}

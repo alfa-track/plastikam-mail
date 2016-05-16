@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="master.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+    <ui:param name="pageTitle" value="Статистика"/>
+
+    <ui:define name="right-toolbar">
+    </ui:define>
+
+    <ui:define name="content">
+        <p:chart type="bar" model="#{charts.barModel}" style="height: 500px;"/>
+    </ui:define>
+</ui:composition>

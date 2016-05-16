@@ -19,19 +19,19 @@ import static org.junit.Assert.assertThat;
 public class RepositorySmokeTest {
 
     @Autowired
-    EmailInRepository userRepository;
+    EmailInRepository repository;
 
     @Test
     public void shouldInjectRepository() {
         //Если инициализировать userRepository не получится - то до теста не дойдёт
         //Эта проверка для явности
-        assertThat(userRepository, notNullValue());
+        assertThat(repository, notNullValue());
     }
 
     @Test
     public void whenSavingUser_shouldNotFail() {
         EmailIn user = new EmailIn();
-        user = userRepository.save(user);
+        user = repository.save(user);
         assertThat(user.getId(), greaterThan(0l));
     }
 }

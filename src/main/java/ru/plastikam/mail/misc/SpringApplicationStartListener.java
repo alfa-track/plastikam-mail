@@ -6,16 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class SpringApplicationStartListener implements ApplicationListener<ContextRefreshedEvent> {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Override
-    @Transactional
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-    }
+    @Autowired
+    DictionaryFill dictionaryFill;
 
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        dictionaryFill.fill();
+    }
 }

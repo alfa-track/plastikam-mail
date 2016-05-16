@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="master.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+    <ui:param name="pageTitle" value="Клиенты"/>
+
+    <ui:define name="right-toolbar">
+        <p:commandButton icon="fa fa-file-excel-o" value="Выгрузка в XLS" style="float: right;" ajax="false">
+            <p:dataExporter type="xls" target=":mainForm:clients" fileName="mails"/>
+        </p:commandButton>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p:dataTable id="clients" filteredValue="#{clients.clientsFiltered}" value="#{clients.clients}" var="client" emptyMessage="..." aginator="true">
+
+            <f:facet name="header">
+                <h:outputText value="Клиенты" style="float: center;"/>
+            </f:facet>
+
+
+            <p:column headerText="Email" filterBy="#{client.email}" sortBy="#{client.email}" filterMatchMode="contains">
+                <h:outputText value="#{client.email}"/>
+            </p:column>
+
+        </p:dataTable>
+    </ui:define>
+
+</ui:composition>

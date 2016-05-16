@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+>
+
+<h:head>
+    <title>Почтопересылалка - #{pageTitle}</title>
+</h:head>
+
+<ui:include src="common.xhtml"/>
+
+<h:body id="body">
+    <div id="main" style="min-width: 1300px">
+        <h:form id="toolbar">
+            <p:toolbar>
+
+                <f:facet name="left">
+                    <p:menuButton value="Почтопересылалка - #{pageTitle}" styleClass="menuButton-nav" menuStyleClass="menuButton-nav-menu">
+                        <p:menuitem value="Входящие письма" icon="fa fa-envelope-o" outcome="mail"/>
+                        <p:menuitem value="Клиенты" icon="fa fa-users" outcome="clients"/>
+                        <p:menuitem value="Регионы" icon="fa fa-pie-chart" outcome="regions"/>
+                        <p:menuitem value="Заказы" icon="fa fa-cube"/>
+                        <p:menuitem value="Статистика" icon="fa fa-area-chart" outcome="chart"/>
+                        <p:menuitem value="Справка" icon="fa fa-info" onclick="PF('help').show();"/>
+                    </p:menuButton>
+
+                    <ui:insert name="left-toolbar"/>
+
+                </f:facet>
+
+                <f:facet name="right">
+
+                    <ui:insert name="right-toolbar"/>
+
+                    <script type="text/javascript">
+                        $('.menuButton-nav .ui-icon-triangle-1-s').addClass('fa fa-bars');
+                    </script>
+
+                </f:facet>
+
+            </p:toolbar>
+            <ui:remove><p:sticky target="toolbar"/></ui:remove>
+        </h:form>
+
+        <h:form id="mainForm">
+            <ui:insert name="content"/>
+        </h:form>
+    </div>
+</h:body>
+
+<p:dialog header="Справка" widgetVar="help" resizable="true" closable="true" modal="true" width="calc( 100vw - 150px )" height="calc( 100vh - 150px )">
+
+    <h:form id="help">
+        <p:tabView>
+            <p:tab title="История изменений">
+
+                <ui:include src="version-history.xhtml"/>
+
+            </p:tab>
+        </p:tabView>
+    </h:form>
+
+</p:dialog>
+
+
+<ui:insert name="dialogs"/>
+
+</html>

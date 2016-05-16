@@ -1,0 +1,122 @@
+.required-star {
+    color: rgba(255, 0, 0, 0.7);
+    font-weight: bolder;
+    font-size: smaller;
+}
+
+.fa {
+    /*color: white;*/
+    text-shadow: white 1px 1px 1px;
+}
+
+html {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    /*     overflow: hidden !important; */
+}
+
+body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color: white;
+    /*zoom: 0.9;*/
+    /*     overflow: hidden !important; */
+}
+
+.blockBody {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+#main {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+/*.ui-state-default, .ui-paginator {*/
+/*font-weight: bolder !important;*/
+/*font-size: smaller !important;*/
+/*}*/
+
+#content {
+    flex-grow: 1;
+    display: flex;
+}
+
+#content > div {
+}
+
+/*.ui-widget, .ui-widget .ui-widget {*/
+/*font-size: 100% !important;*/
+/*}*/
+
+.ui-grid .ui-grid-row {
+    display: block;
+}
+
+.center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+}
+
+.fa-float-left {
+    /*float: left;*/
+}
+
+.ui-grid-responsive {
+    /*padding-right: 10px !important;*/
+}
+
+.ui-grid .ui-grid-row {
+    padding-bottom: 8px;
+}
+
+.searchToolbar .ui-button {
+    width: 98%;
+    height: 30px;
+}
+
+.cardTabs .ui-tabs-nav {
+    display: block;
+    /*background-image: none;*/
+    /*background-color: white;*/
+    border: 0px;
+    border-bottom: 1px solid silver;
+}
+
+.cardTabs.ui-tabs {
+    border: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.cardTabs .ui-tabs-panels {
+    margin: -17px;
+    margin-top: -13px;
+    margin-bottom: 0px;
+}
+
+.ui-tabs {
+    border: 0px;
+}
+
+.ui-buttonset {
+    margin-right: 0px !important;
+}
+
+label {
+    /*text-align: right;*/
+    /*float: right; */
+
+}
+
+.ui-menu.menuButton-nav-menu {
+    width: 250px;
+}

@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="master.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+
+    <ui:param name="pageTitle" value="Регионы"/>
+
+    <ui:define name="right-toolbar">
+    </ui:define>
+
+    <ui:define name="content">
+
+        <p:dataTable id="clients" value="#{regions.clients}" var="region" emptyMessage="..." style="margin-top: 10px;" paginator="true">
+
+            <f:facet name="header">
+                <h:outputText value="Справочник регионов" style="float: center;"/>
+            </f:facet>
+
+            <p:column headerText="Почтовый префикс">
+                <h:outputText value="#{region.mailPrefix}"/>
+            </p:column>
+
+            <p:column headerText="Название (Папка gmail)">
+                <h:outputText value="#{region.name}"/>
+            </p:column>
+
+            <p:column headerText="Тип">
+                <h:outputText value="#{region.region ? 'Регион':'Отдел'}"/>
+            </p:column>
+1
+        </p:dataTable>
+    </ui:define>
+
+</ui:composition>

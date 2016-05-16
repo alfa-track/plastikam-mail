@@ -1,0 +1,46 @@
+
+.row-hide {
+    display: none !important;
+}
+
+.ui-icon.fa {
+    background-image: none !important;
+    overflow: visible;
+    text-indent: 0px;
+}
+
+.icon-large {
+    transform: scale(1.1, 1.1) !important;
+    top: 12px !important;
+    opacity: 0.8;
+}
+
+.ui-growl {
+    z-index: 999999 !important;
+}
+
+.proposal {
+    opacity: 0.5;
+}
+
+.wsc-left-actions-panel-button {
+    width: 50px !important;
+    height: 28px;
+    margin-bottom: 6px;
+    margin-right: 8px !important;
+}
+
+.wsc-left-actions-panel-button-named {
+    height: 28px;
+    margin-bottom: 6px;
+    margin-right: 8px !important;
+}
+
+.ui-toolbar > div > * {
+    margin-right: 2px !important;
+}
+
+tr.row-archive, tr.ui-state-highlight.row-archive {
+    color: grey;
+}
+
