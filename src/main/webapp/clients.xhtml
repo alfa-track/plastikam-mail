@@ -26,8 +26,16 @@
                 <h:outputText value="Клиенты" style="float: center;"/>
             </f:facet>
 
+            <p:column headerText="Дата обработки" width="143" sortBy="#{client.createDate}">
+                <h:outputText value="#{client.createDate}" style="text-align: center; display: block;">
+                    <f:convertDateTime pattern="yyyy-MM-dd hh:mm"/>
+                </h:outputText>
+            </p:column>
+
             <p:column headerText="Дата контакта" sortBy="#{client.firsContact}">
-                <h:outputText value="#{client.firsContact}"/>
+                <h:outputText value="#{client.firsContact}" style="text-align: center; display: block;">
+                    <f:convertDateTime pattern="yyyy-MM-dd hh:mm"/>
+                </h:outputText>
             </p:column>
 
             <p:column headerText="Email" filterBy="#{client.email}" sortBy="#{client.email}" filterMatchMode="contains">
