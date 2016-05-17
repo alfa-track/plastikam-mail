@@ -12,6 +12,8 @@ public class EmailIn extends Email {
 
     private String errorMessage = "";
 
+    private String senderName;
+
     public Client getClient() {
         return client;
     }
@@ -47,7 +49,7 @@ public class EmailIn extends Email {
     @OneToMany(mappedBy = "emailIn",fetch = FetchType.EAGER)
     private List<EmailOut> emailsOut;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Region region;
 
     @ManyToOne
@@ -71,21 +73,21 @@ public class EmailIn extends Email {
 
     }
 
-    public String parseRegion() {
-
-        Pattern pattern = Pattern.compile("([^\\+\\@]*)[\\+\\@].*");
-
-        for (Recipient recipient : recipients) {
-            Matcher matcher = pattern.matcher(recipient.getEmail());
-
-            if (matcher.matches()) {
-                return matcher.group(1);
-            }
-        }
-
-        return "";
-
-    }
+//    public String parseRegion() {
+//
+//        Pattern pattern = Pattern.compile("([^\\+\\@]*)[\\+\\@].*");
+//
+//        for (Recipient recipient : recipients) {
+//            Matcher matcher = pattern.matcher(recipient.getEmail());
+//
+//            if (matcher.matches()) {
+//                return matcher.group(1);
+//            }
+//        }
+//
+//        return "";
+//
+//    }
 
     public String getResolution() {
         return resolution;
@@ -110,5 +112,13 @@ public class EmailIn extends Email {
     public void setError(Exception e) {
         setError(true);
         setErrorMessage(e.getClass().getSimpleName() + ": " + e.getMessage());
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getSenderName() {
+        return senderName;
     }
 }

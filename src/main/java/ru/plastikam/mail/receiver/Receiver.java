@@ -47,7 +47,7 @@ public class Receiver extends AbstractService {
 
                 logger.debug("Есть " + n + " новых писем");
 
-                for (int i = 0; i < messages.length && i < 5; i++) {
+                for (int i = 0; i < messages.length && i < Config.Mail.maxMailPerRound; i++) {
                     EmailIn emailIn = new EmailIn();
                     try {
                         emailIn.setDate(messages[i].getReceivedDate());
@@ -69,7 +69,10 @@ public class Receiver extends AbstractService {
 
                         InternetAddress from = ((InternetAddress) messages[i].getFrom()[0]);
 
+                        emailIn.setRegion(r);
+
                         emailIn.setSender(from.getAddress());
+                        emailIn.setSenderName(from.getPersonal());
                         emailIn.setSubject(messages[i].getSubject());
                         emailIn.setMessageBody("" + messages[i].getContent().toString());
                         emailIn.setMessageBody("" + getTextFromMessage(messages[i]));

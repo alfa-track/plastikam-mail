@@ -1,9 +1,8 @@
 package ru.plastikam.mail.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
@@ -11,6 +10,18 @@ public abstract class AbstractEntity implements Serializable {
     @Id
     @GeneratedValue
     long id;
+
+    private Date createDate;
+
+    private Date updateDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
 
     public long getId() {
         return id;
@@ -28,11 +39,20 @@ public abstract class AbstractEntity implements Serializable {
         AbstractEntity that = (AbstractEntity) o;
 
         return id == that.id;
-
     }
 
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        createDate = new Date();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updateDate = new Date();
     }
 }

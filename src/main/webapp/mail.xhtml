@@ -24,7 +24,7 @@
 
         <br/>
 
-        <p:dataTable id="emails" filteredValue="#{mails.emailsFiltered}" value="#{mails.emails}" var="email" emptyMessage="..."
+        <p:dataTable id="emails" filteredValue="#{mails.objectsFiltered}" value="#{mails.objects}" var="email" emptyMessage="..."
                      paginator="true" rowsPerPageTemplate="10,20,50,100,200,500,1000,5000" rows="50"
                      currentPageReportTemplate="Отфильтровано: {totalRecords} "
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -38,6 +38,12 @@
             <f:facet name="header">
                 <h:outputText value="Входящие письма" style="float: center;"/>
             </f:facet>
+
+            <p:column headerText="Дата обработки" width="143" sortBy="#{email.createDate}">
+                <h:outputText value="#{email.createDate}" style="text-align: center; display: block;">
+                    <f:convertDateTime pattern="yyyy-MM-dd hh:mm"/>
+                </h:outputText>
+            </p:column>
 
             <p:column headerText="Дата" width="143" sortBy="#{email.date}">
                 <h:outputText value="#{email.date}" style="text-align: center; display: block;">

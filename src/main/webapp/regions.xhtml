@@ -13,7 +13,7 @@
 
     <ui:define name="content">
 
-        <p:dataTable id="clients" value="#{regions.clients}" var="region" emptyMessage="..." style="margin-top: 10px;" paginator="true">
+        <p:dataTable id="clients" value="#{regions.objects}" var="region" emptyMessage="..." style="margin-top: 10px;" paginator="true">
 
             <f:facet name="header">
                 <h:outputText value="Справочник регионов" style="float: center;"/>
@@ -30,7 +30,7 @@
             <p:column headerText="Тип">
                 <h:outputText value="#{region.region ? 'Регион':'Отдел'}"/>
             </p:column>
-1
+            1
         </p:dataTable>
     </ui:define>
 

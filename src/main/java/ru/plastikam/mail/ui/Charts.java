@@ -4,11 +4,9 @@ import org.primefaces.model.chart.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-
 @Service
 @Scope(scopeName = "view")
-public class Charts implements Serializable {
+public class Charts extends AbstractBacking {
 
     private BarChartModel barModel;
 

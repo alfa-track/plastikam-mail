@@ -21,32 +21,35 @@ public class MessageProcessor extends AbstractService {
             if (emailIn.isError())
                 return;
 
-            boolean resend = true;
+            boolean resend = false;
 
-            emailIn.setRegion(regionRepository.findOneByMailPrefix(emailIn.parseRegion()));
+//            emailIn.setRegion(regionRepository.findOneByMailPrefix(emailIn.parseRegion()));
 
-            if (emailIn.getRegion() == null) {
-                resend = false;
-                emailIn.addResolution("Нет региона по получателю " + emailIn.parseRegion());
-            } else {
-                if (!emailIn.getRegion().isRegion()) {
-                    resend = false;
-                    emailIn.addResolution("Ригиона получателя - не регион " + emailIn.parseRegion());
-                } else {
-                    emailIn.addResolution("В получателе указан регион " + emailIn.parseRegion());
-                }
-
-            }
+//            if (emailIn.getRegion() == null) {
+//                resend = false;
+//                emailIn.addResolution("Нет региона по получателю " + emailIn.parseRegion());
+//            } else {
+//                if (!emailIn.getRegion().isRegion()) {
+//                    resend = false;
+//                    emailIn.addResolution("Ригиона получателя - не регион " + emailIn.parseRegion());
+//                } else {
+//                    emailIn.addResolution("В получателе указан регион " + emailIn.parseRegion());
+//                }
+//            }
 
             if (clientRepository.countByEmail(emailIn.getSender()) == 0) {
                 emailIn.addResolution("Клинет новый");
-                Client client = new Client(emailIn.getSender());
+
+                Client client = new Client(emailIn.getSender(), emailIn.getSenderName(), emailIn.getDate(), "mail+" + emailIn.parseSource(), emailIn.getRegion());
+
                 clientRepository.save(client);
                 emailIn.setClient(client);
+                resend = true;
             } else {
                 emailIn.addResolution("Клинет существует");
                 Client client = clientRepository.findOneByEmail(emailIn.getSender());
                 emailIn.setClient(client);
+                resend = false;
             }
 
             emailIn = emailInRepository.save(emailIn);

@@ -1,5 +1,6 @@
 package ru.plastikam.mail.misc;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.plastikam.mail.model.Region;
@@ -7,6 +8,9 @@ import ru.plastikam.mail.receiver.AbstractService;
 
 @Service
 public class DictionaryFill extends AbstractService {
+
+    @Autowired
+    ImportContacts importContacts;
 
     @Transactional
     public void fill() {
@@ -24,7 +28,7 @@ public class DictionaryFill extends AbstractService {
         regionRepository.save(new Region("perm", "Пермь"));
         regionRepository.save(new Region("rostov", "Ростов"));
         regionRepository.save(new Region("samara", "Самара"));
-        regionRepository.save(new Region("spb", "Петербург"));
+        regionRepository.save(new Region("spb", "Санкт-Петербург"));
         regionRepository.save(new Region("tlt", "Тольятти"));
         regionRepository.save(new Region("ufa", "Уфа"));
         regionRepository.save(new Region("chel", "Челябинск"));
@@ -34,6 +38,8 @@ public class DictionaryFill extends AbstractService {
         regionRepository.save(new Region("ok", "Отдел Кадров", false));
         regionRepository.save(new Region("ok.plastikam", "Отдел Кадров Mail.ru", false));
 
+
+        importContacts.doImport();
     }
 
 }

@@ -4,7 +4,8 @@ public class Config {
 
     public static class Mail {
 
-        public static final long scheduleDelayMs = 30000;
+        public static final long scheduleDelayMs = 60000;
+        public static final long maxMailPerRound = 1;
 
         public static class In {
 

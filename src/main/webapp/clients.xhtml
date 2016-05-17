@@ -16,18 +16,38 @@
 
     <ui:define name="content">
 
-        <p:dataTable id="clients" filteredValue="#{clients.clientsFiltered}" value="#{clients.clients}" var="client" emptyMessage="..." aginator="true">
+        <p:dataTable id="clients" filteredValue="#{clients.objectsFiltered}" value="#{clients.objects}" var="client" emptyMessage="..."
+                     paginator="true" rowsPerPageTemplate="10,20,50,100,200,500,1000,5000" rows="50"
+                     currentPageReportTemplate="Отфильтровано: {totalRecords} "
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        >
 
             <f:facet name="header">
                 <h:outputText value="Клиенты" style="float: center;"/>
             </f:facet>
 
+            <p:column headerText="Дата контакта" sortBy="#{client.firsContact}">
+                <h:outputText value="#{client.firsContact}"/>
+            </p:column>
 
             <p:column headerText="Email" filterBy="#{client.email}" sortBy="#{client.email}" filterMatchMode="contains">
                 <h:outputText value="#{client.email}"/>
             </p:column>
 
+            <p:column headerText="Имя" filterBy="#{client.clientName}" sortBy="#{client.clientName}" filterMatchMode="contains">
+                <h:outputText value="#{client.clientName}"/>
+            </p:column>
+
+            <p:column headerText="Регион" sortBy="#{client.region}" filterBy="#{client.region}" filterMatchMode="contains">
+                <h:outputText value="#{client.region}"/>
+            </p:column>
+
+            <p:column headerText="Источник" sortBy="#{client.source}" filterBy="#{client.source}" filterMatchMode="contains">
+                <h:outputText value="#{client.source}"/>
+            </p:column>
+
         </p:dataTable>
+
     </ui:define>
 
 </ui:composition>
