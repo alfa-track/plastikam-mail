@@ -11,9 +11,6 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
-/**
- * Проверка работоспособности конфигурации БД и поверхостная проверка репозиториев
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = EmailApplication.class)
 public class RepositorySmokeTest {

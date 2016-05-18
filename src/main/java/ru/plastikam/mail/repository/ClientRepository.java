@@ -8,6 +8,6 @@ public interface ClientRepository extends AbstractRepository<Client> {
 
     int countByEmail(String email);
 
-    Client findOneByEmail(String email);
+    Client findOneByEmailIgnoreCase(String email);
 
 }

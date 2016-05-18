@@ -47,7 +47,7 @@ public class MessageProcessor extends AbstractService {
                 resend = true;
             } else {
                 emailIn.addResolution("Клинет существует");
-                Client client = clientRepository.findOneByEmail(emailIn.getSender());
+                Client client = clientRepository.findOneByEmailIgnoreCase(emailIn.getSender());
                 emailIn.setClient(client);
                 resend = false;
             }
