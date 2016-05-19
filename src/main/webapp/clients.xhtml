@@ -28,13 +28,13 @@
 
             <p:column headerText="Дата обработки" width="143" sortBy="#{client.createDate}">
                 <h:outputText value="#{client.createDate}" style="text-align: center; display: block;">
-                    <f:convertDateTime pattern="yyyy-MM-dd hh:mm"/>
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
                 </h:outputText>
             </p:column>
 
             <p:column headerText="Дата контакта" sortBy="#{client.firsContact}">
                 <h:outputText value="#{client.firsContact}" style="text-align: center; display: block;">
-                    <f:convertDateTime pattern="yyyy-MM-dd hh:mm"/>
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
                 </h:outputText>
             </p:column>
 

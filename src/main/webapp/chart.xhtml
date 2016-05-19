@@ -2,11 +2,18 @@
                 template="master.xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
 >
 
     <ui:param name="pageTitle" value="Статистика"/>
 
     <ui:define name="right-toolbar">
+
+        Время сервера: <h:outputText value="#{charts.currentDate}" style="text-align: center; display: block;">
+        <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+    </h:outputText>
+
     </ui:define>
 
     <ui:define name="content">

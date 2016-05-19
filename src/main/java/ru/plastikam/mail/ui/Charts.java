@@ -4,6 +4,8 @@ import org.primefaces.model.chart.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 @Scope(scopeName = "view")
 public class Charts extends AbstractBacking {
@@ -18,6 +20,9 @@ public class Charts extends AbstractBacking {
         return barModel;
     }
 
+    public Date getCurrentDate() {
+        return new Date();
+    }
 
     private BarChartModel initBarModel() {
         BarChartModel model = new BarChartModel();

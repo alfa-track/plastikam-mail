@@ -1,6 +1,7 @@
 package ru.plastikam.mail.receiver;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.plastikam.mail.configuration.Config;
 import ru.plastikam.mail.model.EmailIn;
@@ -145,7 +146,7 @@ public class Receiver extends AbstractService {
 
     }
 
-    //    @Scheduled(fixedDelay = Config.Mail.scheduleDelayMs)
+    @Scheduled(fixedDelay = Config.Mail.scheduleDelayMs)
     public void task() {
         processMail();
     }
