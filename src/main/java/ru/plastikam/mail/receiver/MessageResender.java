@@ -73,22 +73,22 @@ public class MessageResender extends AbstractService {
         cm.setKnownClient(knownClient);
     }
 
-    private EmailOut translate(ClientMessage emailIn) {
+    private EmailOut translate(ClientMessage clientMessage) {
         String message = "";
 
         message += "[TYPE]: 3\n\n";
-//        message += "[SOURCE]: " + emailIn.getSource() + "\n\n";
-        message += "[TICKET]:  " + emailIn.getTicket() + "\n\n";
+//        message += "[SOURCE]: " + clientMessage.getSource() + "\n\n";
+        message += "[TICKET]:  " + clientMessage.getTicket() + "\n\n";
 //        message += "[FORM]: " + "\n\n";
-        message += "[DATE]: " + new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(emailIn.getDate()) + "\n\n";
-        message += "[ROISTATID]: " + emailIn.getSource() + "\n\n";
+        message += "[DATE]: " + new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(clientMessage.getDate()) + "\n\n";
+        message += "[ROISTATID]: " + clientMessage.getROISTATID() + "\n\n";
         message += "[NAME]: " + "\n\n";
 //        message += "[PHONE]: " + "\n\n";
-        message += "[EMAIL]: " + emailIn.getEmail() + "\n\n";
-        message += "[REGION]: " + (emailIn.getRegion() == null ? "" : emailIn.getRegion().getMailPrefix()) + "\n\n";
-        message += "[REGION_RU]: " + (emailIn.getRegion() == null ? "" : emailIn.getRegion().getName()) + "\n\n";
+        message += "[EMAIL]: " + clientMessage.getEmail() + "\n\n";
+        message += "[REGION]: " + (clientMessage.getRegion() == null ? "" : clientMessage.getRegion().getMailPrefix()) + "\n\n";
+        message += "[REGION_RU]: " + (clientMessage.getRegion() == null ? "" : clientMessage.getRegion().getName()) + "\n\n";
 
-        message += "[BODY]: " + emailIn.getMessageBody() + "\n\n";
+        message += "[BODY]: " + clientMessage.getMessageBody() + "\n\n";
 
         EmailOut emailOut = new EmailOut(message);
         return emailOut;

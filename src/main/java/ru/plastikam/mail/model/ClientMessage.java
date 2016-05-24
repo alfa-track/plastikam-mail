@@ -162,4 +162,10 @@ public class ClientMessage extends AbstractEntity {
     public void setTicket(long ticket) {
         this.ticket = ticket;
     }
+
+    public String getROISTATID() {
+        if (getSource().startsWith("mail+"))
+            return getSource().replace("mail+", "");
+        return "";
+    }
 }
