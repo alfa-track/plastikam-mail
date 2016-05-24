@@ -26,10 +26,13 @@ public class EmailSender extends AbstractService {
             apacheEmail.setTextMsg(emailOut.getMessageBody());
             apacheEmail.send();
 
+            logger.info("Отправлено письмо");
             return emailOut;
         } catch (Exception e) {
             emailOut.addComment("Ошибка при отправке email сообщения: " + e.toString());
             throw new RuntimeException("Ошибка при отправке email сообщения", e);
+        } finally {
+            emailOutRepository.save(emailOut);
         }
     }
 }

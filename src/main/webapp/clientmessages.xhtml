@@ -6,26 +6,31 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 
-    <ui:param name="pageTitle" value="Клиенты"/>
+    <ui:param name="pageTitle" value="Обращения клиентов"/>
 
     <ui:define name="right-toolbar">
         <p:commandButton icon="fa fa-file-excel-o" value="Выгрузка в XLS" style="float: right;" ajax="false">
-            <p:dataExporter type="xls" target=":mainForm:clients" fileName="mails"/>
+            <p:dataExporter type="xls" target=":mainForm:mainTable" fileName="clientmessages"/>
         </p:commandButton>
     </ui:define>
 
     <ui:define name="content">
 
-        <p:dataTable id="clients" filteredValue="#{clients.objectsFiltered}" value="#{clients.objects}" var="client" emptyMessage="..."
+        <p:dataTable id="mainTable" filteredValue="#{clientMessages.objectsFiltered}" value="#{clientMessages.objects}" var="client" emptyMessage="..."
                      paginator="true" rowsPerPageTemplate="10,20,50,100,200,500,1000,5000" rows="50"
                      currentPageReportTemplate="Отфильтровано: {totalRecords} "
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      sortBy="#{client.createDate}" sortOrder="descending"
+
         >
 
             <f:facet name="header">
-                <h:outputText value="Клиенты" style="float: center;"/>
+                <h:outputText value="Обращения клиентов" style="float: center;"/>
             </f:facet>
+
+            <p:column style="width:16px" exportable="false">
+                <p:rowToggler/>
+            </p:column>
 
             <p:column headerText="Дата обработки" width="143" sortBy="#{client.createDate}">
                 <h:outputText value="#{client.createDate}" style="text-align: center; display: block;">
@@ -33,8 +38,8 @@
                 </h:outputText>
             </p:column>
 
-            <p:column headerText="Дата контакта" sortBy="#{client.firsContact}">
-                <h:outputText value="#{client.firsContact}" style="text-align: center; display: block;">
+            <p:column headerText="Дата обращения" width="143" sortBy="#{client.date}">
+                <h:outputText value="#{client.date}" style="text-align: center; display: block;">
                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
                 </h:outputText>
             </p:column>
@@ -58,6 +63,25 @@
             <p:column headerText="Источник" sortBy="#{client.source}" filterBy="#{client.source}" filterMatchMode="contains">
                 <h:outputText value="#{client.source}"/>
             </p:column>
+
+            <p:column headerText="Известный клиент" sortBy="#{client.knownClientString}" filterBy="#{client.knownClientString}" filterMatchMode="contains">
+                <h:outputText value="#{client.knownClientString}"/>
+            </p:column>
+
+            <p:column headerText="Решение программы" sortBy="#{client.resolution}" filterBy="#{client.resolution}" filterMatchMode="contains">
+                <h:outputText value="#{fc.br(client.resolution)}" escape="false"/>
+            </p:column>
+
+            <p:column headerText="Ошибка">
+                <h:outputText value="#{client.error ? '!!!':''}"/>
+            </p:column>
+
+            <p:rowExpansion>
+                <h:outputText value="#{client.messageBody}"/>
+                <br/>
+                <br/>
+                <h:outputText value="#{client.errorMessage}"/>
+            </p:rowExpansion>
 
         </p:dataTable>
 

@@ -4,10 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.plastikam.mail.repository.ClientRepository;
-import ru.plastikam.mail.repository.EmailInRepository;
-import ru.plastikam.mail.repository.EmailOutRepository;
-import ru.plastikam.mail.repository.RegionRepository;
+import ru.plastikam.mail.repository.*;
 
 @Service
 public abstract class AbstractService {
@@ -25,6 +22,9 @@ public abstract class AbstractService {
 
     @Autowired
     protected ClientRepository clientRepository;
+
+    @Autowired
+    protected ClientMessageRepository clientMessageRepository;
 
 
 }

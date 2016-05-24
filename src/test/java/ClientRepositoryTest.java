@@ -7,8 +7,7 @@ import ru.plastikam.mail.EmailApplication;
 import ru.plastikam.mail.model.Client;
 import ru.plastikam.mail.repository.ClientRepository;
 
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,5 +21,11 @@ public class ClientRepositoryTest {
     public void whenFindClient_shouldIgnoreCase() {
         Client client = repository.findOneByEmailIgnoreCase("info@ascod.RU");
         assertThat(client, not(nullValue()));
+    }
+
+    @Test
+    public void whenSearchByDomain_shouldFind() {
+        int count = repository.countByEmailEndsWithIgnoreCase("yanDeX.rU");
+        assertThat(count, greaterThan(10));
     }
 }

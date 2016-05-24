@@ -1,61 +1,21 @@
 package ru.plastikam.mail.model;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Entity
 public class EmailIn extends Email {
 
-    private boolean error = false;
-
-    private String errorMessage = "";
-
     private String senderName;
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
-
-    public List<EmailOut> getEmailsOut() {
-        return emailsOut;
-    }
-
-    public void setEmailsOut(List<EmailOut> emailsOut) {
-        this.emailsOut = emailsOut;
-    }
-
-    @OneToMany(mappedBy = "emailIn",fetch = FetchType.EAGER)
-    private List<EmailOut> emailsOut;
 
     @ManyToOne
     private Region region;
 
-    @ManyToOne
-    private Client client;
-
-    private String resolution = "";
+    @OneToOne
+    private ClientMessage clientMessage;
 
     public String parseSource() {
 
@@ -89,12 +49,19 @@ public class EmailIn extends Email {
 //
 //    }
 
+
+    private String resolution = "";
+
     public String getResolution() {
         return resolution;
     }
 
     public void setResolution(String resolution) {
         this.resolution = resolution;
+    }
+
+    public void addResolution(String s) {
+        resolution += s + "\n";
     }
 
     public Region getRegion() {
@@ -105,13 +72,30 @@ public class EmailIn extends Email {
         this.region = region;
     }
 
-    public void addResolution(String s) {
-        resolution += s + "\n";
+
+    private boolean error = false;
+
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
     }
 
     public void setError(Exception e) {
         setError(true);
         setErrorMessage(e.getClass().getSimpleName() + ": " + e.getMessage());
+    }
+
+    private String errorMessage = "";
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public void setSenderName(String senderName) {
@@ -120,5 +104,13 @@ public class EmailIn extends Email {
 
     public String getSenderName() {
         return senderName;
+    }
+
+    public ClientMessage getClientMessage() {
+        return clientMessage;
+    }
+
+    public void setClientMessage(ClientMessage clientMessage) {
+        this.clientMessage = clientMessage;
     }
 }

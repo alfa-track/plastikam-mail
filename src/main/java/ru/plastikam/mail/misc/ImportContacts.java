@@ -40,7 +40,7 @@ public class ImportContacts extends AbstractService {
 
             Date date = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").parse(split[0]);
 
-            clientRepository.save(new Client(split[1], "", date, "Гуглотабличка", null));
+            clientRepository.save(new Client(split[1], "", date, "Гуглотабличка", null, ""));
 
         } catch (Exception e) {
             throw new RuntimeException(e);

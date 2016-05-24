@@ -18,6 +18,8 @@ public class Client extends AbstractEntity {
 
     private String source;
 
+    private String phone;
+
     public Region getRegion() {
         return region;
     }
@@ -29,12 +31,13 @@ public class Client extends AbstractEntity {
     @ManyToOne
     private Region region;
 
-    public Client(String email, String clientName, Date firsContact, String source, Region region) {
+    public Client(String email, String clientName, Date firsContact, String source, Region region, String phone) {
         this.email = email;
         this.clientName = clientName;
         this.firsContact = firsContact;
         this.source = source;
         this.region = region;
+        this.phone = phone;
     }
 
     public Client() {
@@ -70,5 +73,26 @@ public class Client extends AbstractEntity {
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "email='" + email + '\'' +
+                ", clientName='" + clientName + '\'' +
+                ", firsContact=" + firsContact +
+                ", source='" + source + '\'' +
+                ", region=" + region +
+                ", getCreateDate=" + getCreateDate() +
+                ", getUpdateDate=" + getUpdateDate() +
+                '}';
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

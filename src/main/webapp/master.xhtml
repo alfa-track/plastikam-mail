@@ -20,12 +20,15 @@
 
                 <f:facet name="left">
                     <p:menuButton value="Почтопересылалка - #{pageTitle}" styleClass="menuButton-nav" menuStyleClass="menuButton-nav-menu">
+                        <p:menuitem value="Обращения клиентов" icon="fa fa-comment-o" outcome="clientmessages"/>
                         <p:menuitem value="Входящие письма" icon="fa fa-envelope-o" outcome="mail"/>
                         <p:menuitem value="Клиенты" icon="fa fa-users" outcome="clients"/>
                         <p:menuitem value="Регионы" icon="fa fa-pie-chart" outcome="regions"/>
                         <p:menuitem value="Заказы" icon="fa fa-cube"/>
                         <p:menuitem value="Статистика" icon="fa fa-area-chart" outcome="chart"/>
                         <p:menuitem value="Справка" icon="fa fa-info" onclick="PF('help').show();"/>
+                        <p:menuitem value="Настройки" icon="fa fa-cogs" outcome="admin"/>
+                        <p:menuitem value="Отправленные письма" icon="fa fa-arrow-right" outcome="sentmails"/>
                     </p:menuButton>
 
                     <ui:insert name="left-toolbar"/>

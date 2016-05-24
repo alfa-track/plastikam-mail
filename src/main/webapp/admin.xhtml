@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="master.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+>
+
+    <ui:param name="pageTitle" value="Настройки"/>
+
+    <ui:define name="right-toolbar">
+
+        Время сервера: <h:outputText value="#{charts.currentDate}" style="text-align: center; display: block;">
+        <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+    </h:outputText>
+
+    </ui:define>
+
+    <ui:define name="content">
+        <p:commandButton icon="fa fa-cog" value="(Не нажимать) Очистить БД от дубликатов клиентов с разным размером букв"
+                         style="float: right;" action="#{admin.removeCaseDuplicates}" update="@all"/>
+
+    </ui:define>
+</ui:composition>

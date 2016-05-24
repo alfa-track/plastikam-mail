@@ -6,17 +6,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 
-    <ui:param name="pageTitle" value="Входящие письма"/>
+    <ui:param name="pageTitle" value="Отправленные письма"/>
 
     <ui:define name="left-toolbar">
-    </ui:define>
-
-    <ui:define name="right-toolbar">
-        <p:commandButton icon="fa fa-refresh" value="Получить почту" style="float: right;" action="#{mails.process}" update="@all"/>
-
-        <p:commandButton icon="fa fa-file-excel-o" value="Выгрузка в XLS" style="float: right;" ajax="false">
-            <p:dataExporter type="xls" target=":mainForm:emails" fileName="mails"/>
-        </p:commandButton>
     </ui:define>
 
     <ui:define name="content">
@@ -24,11 +16,12 @@
 
         <br/>
 
-        <p:dataTable id="emails" filteredValue="#{mails.objectsFiltered}" value="#{mails.objects}" var="email" emptyMessage="..."
+        <p:dataTable id="emails" filteredValue="#{sentmails.objectsFiltered}" value="#{sentmails.objects}" var="email" emptyMessage="..."
                      paginator="true" rowsPerPageTemplate="10,20,50,100,200,500,1000,5000" rows="50"
                      currentPageReportTemplate="Отфильтровано: {totalRecords} "
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      sortBy="#{email.createDate}" sortOrder="descending"
+
         >
 
             <p:column style="width:16px" exportable="false">
@@ -36,7 +29,7 @@
             </p:column>
 
             <f:facet name="header">
-                <h:outputText value="Входящие письма" style="float: center;"/>
+                <h:outputText value="Отправленные письма" style="float: center;"/>
             </f:facet>
 
             <p:column headerText="Дата обработки" width="143" sortBy="#{email.createDate}">
@@ -61,27 +54,17 @@
                 </p:dataList>
             </p:column>
 
-            <p:column headerText="Источник" filterBy="#{email.parseSource()}" sortBy="#{email.parseSource()}" filterMatchMode="contains">
-                <h:outputText value="#{email.parseSource()}"/>
-            </p:column>
-
-            <p:column headerText="Регион" filterBy="#{email.region}" sortBy="#{email.region}" filterMatchMode="contains">
-                <h:outputText value="#{email.region}"/>
-            </p:column>
-
-            <p:column headerText="Решение программы" sortBy="#{email.resolution}" filterBy="#{email.resolution}" filterMatchMode="contains">
-                <h:outputText value="#{email.resolution}"/>
-            </p:column>
-
-            <p:column headerText="Ошибка">
-                <h:outputText value="#{email.error ? '!!!':''}"/>
-            </p:column>
+            <ui:remove>
+                <p:column headerText="Ошибка">
+                    <h:outputText value="#{email.error ? '!!!':''}"/>
+                </p:column>
+            </ui:remove>
 
             <p:rowExpansion>
                 <h:outputText value="#{email.messageBody}"/>
                 <br/>
                 <br/>
-                <h:outputText value="#{email.errorMessage}"/>
+                <h:outputText value="#{email.comment}"/>
             </p:rowExpansion>
 
         </p:dataTable>

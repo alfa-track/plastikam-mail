@@ -1,9 +1,11 @@
 package ru.plastikam.mail.receiver;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import ru.plastikam.mail.configuration.Config;
+import ru.plastikam.mail.misc.Util;
+import ru.plastikam.mail.model.ClientMessage;
 import ru.plastikam.mail.model.EmailIn;
 import ru.plastikam.mail.model.Recipient;
 import ru.plastikam.mail.model.Region;
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
-public class Receiver extends AbstractService {
+public class EmailReceiver extends AbstractService {
 
     public List<EmailIn> read() {
 
@@ -132,7 +134,7 @@ public class Receiver extends AbstractService {
     }
 
     @Autowired
-    MessageProcessor messageProcessor;
+    MessageResender messageResender;
 
     public void processMail() {
 
@@ -141,13 +143,49 @@ public class Receiver extends AbstractService {
         List<EmailIn> emailIns = read();
 
         for (EmailIn emailIn : emailIns) {
-            messageProcessor.process(emailIn);
+
+            ClientMessage clientMessage = toClientMessage(emailIn);
+
+            clientMessageRepository.save(clientMessage);
+
+            emailIn.setClientMessage(clientMessage);
+
+            emailInRepository.save(emailIn);
+
+            if (emailIn.isError()) {
+
+            } else {
+                messageResender.process(clientMessage);
+            }
         }
 
     }
 
-    @Scheduled(fixedDelay = Config.Mail.scheduleDelayMs)
-    public void task() {
-        processMail();
+    public ClientMessage toClientMessage(EmailIn emailIn) {
+
+        ClientMessage cm = new ClientMessage();
+
+        if (StringUtils.equalsIgnoreCase("noreply@megagroup.ru", emailIn.getSender())) {
+            // Письмо с сайта
+            cm.setEmail(Util.rget(emailIn.getMessageBody(), "Ваш email:(.*)", "Ваш e-mail:(.*)", "E-mail:(.*)"));
+            cm.setClientName(Util.rget(emailIn.getMessageBody(), "Ваше имя:(.*)", "Название организации или Ваше имя:(.*)", "Как к Вам обращаться.:(.*)"));
+            cm.setSource("Заявка с сайта");
+            cm.setPhone(Util.rget(emailIn.getMessageBody(), "Ваш телефон:(.*)", "Контактный телефон:(.*)"));
+        } else {
+            // Письмо с простой и корпоративной почты
+            cm.setEmail(emailIn.getSender());
+            cm.setClientName(emailIn.getSenderName());
+            cm.setSource("mail+" + emailIn.parseSource());
+            cm.setPhone("");
+        }
+
+        cm.setDate(emailIn.getDate());
+        cm.setMessageBody(emailIn.getMessageBody());
+        cm.setRegion(emailIn.getRegion());
+
+        cm.setTicket(((long) (Math.random() * Long.MAX_VALUE)));
+
+        return cm;
     }
+
 }
