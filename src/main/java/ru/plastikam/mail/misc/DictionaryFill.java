@@ -42,4 +42,8 @@ public class DictionaryFill extends AbstractService {
         importContacts.doImport();
     }
 
+    public void addNewRegion() {
+        regionRepository.save(new Region("recover", "Заявки с сайта (с мая 2106)", true));
+    }
+
 }

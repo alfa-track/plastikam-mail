@@ -18,6 +18,9 @@ public class ClientMessage extends AbstractEntity {
     private String messageBody;
 
     @Column(columnDefinition = "TEXT")
+    private String roistatid = "";
+
+    @Column(columnDefinition = "TEXT")
     private String source;
 
     @ManyToOne
@@ -163,9 +166,11 @@ public class ClientMessage extends AbstractEntity {
         this.ticket = ticket;
     }
 
-    public String getROISTATID() {
-        if (getSource().startsWith("mail+"))
-            return getSource().replace("mail+", "");
-        return "";
+    public String getRoistatid() {
+        return roistatid;
+    }
+
+    public void setRoistatid(String roistatid) {
+        this.roistatid = roistatid;
     }
 }

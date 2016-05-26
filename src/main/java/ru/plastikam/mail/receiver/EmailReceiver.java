@@ -47,7 +47,7 @@ public class EmailReceiver extends AbstractService {
 
                 int n = messages.length;
 
-                logger.debug("Есть " + n + " новых писем");
+                logger.debug("Папка " + r.getName() + " " + n + " новых писем");
 
                 for (int i = 0; i < messages.length && i < Config.Mail.maxMailPerRound; i++) {
                     EmailIn emailIn = new EmailIn();
@@ -165,25 +165,40 @@ public class EmailReceiver extends AbstractService {
 
         ClientMessage cm = new ClientMessage();
 
-        if (StringUtils.equalsIgnoreCase("noreply@megagroup.ru", emailIn.getSender())) {
-            // Письмо с сайта
+        cm.setDate(emailIn.getDate());
+        cm.setMessageBody(emailIn.getMessageBody());
+        cm.setRegion(emailIn.getRegion());
+        cm.setTicket(((long) (Math.random() * Long.MAX_VALUE)));
+
+        if (emailIn.getRegion().getMailPrefix().equals("recover")) {
+            // Новое письмо с сайта
+            String body = emailIn.getMessageBody().replaceAll("\\[", "\n[");
+            cm.setEmail(Util.rget(body, "\\[EMAIL\\]:(.*)"));
+            cm.setClientName(Util.rget(body, "\\[NAME\\]:(.*)"));
+            cm.setSource("Заявка с сайта (Новая)");
+            cm.setPhone(Util.rget(body, "\\[PHONE\\]:(.*)"));
+            cm.setRoistatid(Util.rget(body, "\\[ROISTATID\\]:(.*)"));
+            cm.setMessageBody(body);
+            try {
+                cm.setTicket(Long.parseLong(Util.rget(body, "\\[TICKET\\]:(.*)")));
+            } catch (Exception e) {
+                logger.warn("Long.parseLong( [TICKET] )");
+            }
+        } else if (StringUtils.equalsIgnoreCase("noreply@megagroup.ru", emailIn.getSender())) {
+            // Старое с сайта
             cm.setEmail(Util.rget(emailIn.getMessageBody(), "Ваш email:(.*)", "Ваш e-mail:(.*)", "E-mail:(.*)"));
             cm.setClientName(Util.rget(emailIn.getMessageBody(), "Ваше имя:(.*)", "Название организации или Ваше имя:(.*)", "Как к Вам обращаться.:(.*)"));
-            cm.setSource("Заявка с сайта");
+            cm.setSource("Заявка с сайта (Старая)");
             cm.setPhone(Util.rget(emailIn.getMessageBody(), "Ваш телефон:(.*)", "Контактный телефон:(.*)"));
         } else {
             // Письмо с простой и корпоративной почты
             cm.setEmail(emailIn.getSender());
             cm.setClientName(emailIn.getSenderName());
-            cm.setSource("mail+" + emailIn.parseSource());
+
+            cm.setRoistatid(emailIn.parseRoistatid());
+            cm.setSource("Письмо на регион");
             cm.setPhone("");
         }
-
-        cm.setDate(emailIn.getDate());
-        cm.setMessageBody(emailIn.getMessageBody());
-        cm.setRegion(emailIn.getRegion());
-
-        cm.setTicket(((long) (Math.random() * Long.MAX_VALUE)));
 
         return cm;
     }

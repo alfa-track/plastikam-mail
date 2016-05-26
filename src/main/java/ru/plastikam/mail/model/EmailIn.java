@@ -17,7 +17,7 @@ public class EmailIn extends Email {
     @OneToOne
     private ClientMessage clientMessage;
 
-    public String parseSource() {
+    public String parseRoistatid() {
 
         Pattern pattern = Pattern.compile(".*\\+(\\d*)\\@.*");
 

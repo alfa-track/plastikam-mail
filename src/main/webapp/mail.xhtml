@@ -61,9 +61,11 @@
                 </p:dataList>
             </p:column>
 
-            <p:column headerText="Источник" filterBy="#{email.parseSource()}" sortBy="#{email.parseSource()}" filterMatchMode="contains">
-                <h:outputText value="#{email.parseSource()}"/>
-            </p:column>
+            <ui:remove>
+                <p:column headerText="Источник" filterBy="#{email.parseRoistatid()}" sortBy="#{email.parseRoistatid()}" filterMatchMode="contains">
+                    <h:outputText value="#{email.parseRoistatid()}"/>
+                </p:column>
+            </ui:remove>
 
             <p:column headerText="Регион" filterBy="#{email.region}" sortBy="#{email.region}" filterMatchMode="contains">
                 <h:outputText value="#{email.region}"/>

@@ -64,6 +64,10 @@
                 <h:outputText value="#{client.source}"/>
             </p:column>
 
+            <p:column headerText="roistatid" sortBy="#{client.roistatid}" filterBy="#{client.roistatid}" filterMatchMode="contains">
+                <h:outputText value="#{client.roistatid}"/>
+            </p:column>
+
             <p:column headerText="Известный клиент" sortBy="#{client.knownClientString}" filterBy="#{client.knownClientString}" filterMatchMode="contains">
                 <h:outputText value="#{client.knownClientString}"/>
             </p:column>

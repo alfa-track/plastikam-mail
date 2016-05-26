@@ -81,7 +81,7 @@ public class MessageResender extends AbstractService {
         message += "[TICKET]:  " + clientMessage.getTicket() + "\n\n";
 //        message += "[FORM]: " + "\n\n";
         message += "[DATE]: " + new SimpleDateFormat("yyyy.MM.dd HH:mm:ss").format(clientMessage.getDate()) + "\n\n";
-        message += "[ROISTATID]: " + clientMessage.getROISTATID() + "\n\n";
+        message += "[ROISTATID]: " + clientMessage.getRoistatid() + "\n\n";
         message += "[NAME]: " + "\n\n";
 //        message += "[PHONE]: " + "\n\n";
         message += "[EMAIL]: " + clientMessage.getEmail() + "\n\n";
