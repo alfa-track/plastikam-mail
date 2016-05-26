@@ -24,8 +24,10 @@ public class MessageResender extends AbstractService {
             fillClient(cm);
 
             clientMessageRepository.save(cm);
-
-            if (cm.getKnownClient()) {
+            if (cm.getSource().equals("Заявка с сайта (Старая)")) {
+                cm.addResolution("Заявка с сайта в старом формате пропущена");
+                logger.info("Обращение пропущено");
+            } else if (cm.getKnownClient()) {
                 cm.addResolution("Клиент известный");
                 logger.info("Обращение пропущено");
             } else {
