@@ -48,7 +48,10 @@ public class MessageResender extends AbstractService {
     }
 
     private void fillClient(ClientMessage cm) {
-        if (clientRepository.countByEmailIgnoreCase(cm.getEmail()) == 0) {
+        if (cm.getSource().equals("Заявка с сайта (Старая)")) {
+            cm.addResolution("Клиент из заявки с сайта в старом формате пропущен");
+            logger.info("Обращение пропущено");
+        } else if (clientRepository.countByEmailIgnoreCase(cm.getEmail()) == 0) {
             cm.addResolution("Контактное лицо новое");
 
             Client client = new Client(cm.getEmail(), cm.getClientName(), cm.getDate(), cm.getSource(), cm.getRegion(), cm.getPhone());
