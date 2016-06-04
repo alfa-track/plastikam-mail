@@ -1,9 +1,9 @@
 package ru.plastikam.mail.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Client extends AbstractEntity {
@@ -19,6 +19,9 @@ public class Client extends AbstractEntity {
     private String source;
 
     private String phone;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    protected List<ClientMessage> messages = new ArrayList<>();
 
     public Region getRegion() {
         return region;
@@ -95,4 +98,13 @@ public class Client extends AbstractEntity {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public List<ClientMessage> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<ClientMessage> messages) {
+        this.messages = messages;
+    }
+
 }

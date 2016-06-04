@@ -13,13 +13,13 @@ public class SpringApplicationStartListener implements ApplicationListener<Conte
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    DictionaryFill dictionaryFill;
+    DatabasePatches databasePatches;
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         //dictionaryFill.fill();
         //dictionaryFill.addNewRegion();
-
+//        databasePatches.patchUpdatedDate();
 
     }
 }

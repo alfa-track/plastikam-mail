@@ -10,7 +10,7 @@
 
     <ui:define name="right-toolbar">
         <p:commandButton icon="fa fa-file-excel-o" value="Выгрузка в XLS" style="float: right;" ajax="false">
-            <p:dataExporter type="xls" target=":mainForm:clients" fileName="mails"/>
+            <p:dataExporter type="xls" target=":mainForm:clients" fileName="clients"/>
         </p:commandButton>
     </ui:define>
 
@@ -23,17 +23,30 @@
                      sortBy="#{client.createDate}" sortOrder="descending"
         >
 
+
             <f:facet name="header">
                 <h:outputText value="Клиенты" style="float: center;"/>
+                <p:commandButton id="toggler" type="button" value="Колонки" style="float:right" icon="fa fa-th-list"/>
+                <p:columnToggler datasource="clients" trigger="toggler"/>
             </f:facet>
 
-            <p:column headerText="Дата обработки" width="143" sortBy="#{client.createDate}">
+            <p:column style="width:16px" exportable="false">
+                <p:rowToggler/>
+            </p:column>
+
+            <p:column headerText="Дата обработки" width="80" sortBy="#{client.createDate}">
                 <h:outputText value="#{client.createDate}" style="text-align: center; display: block;">
                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
                 </h:outputText>
             </p:column>
 
-            <p:column headerText="Дата контакта" sortBy="#{client.firsContact}">
+            <p:column headerText="Дата обновления" width="80" sortBy="#{client.updateDate}">
+                <h:outputText value="#{client.updateDate}" style="text-align: center; display: block;">
+                    <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                </h:outputText>
+            </p:column>
+
+            <p:column headerText="Дата контакта" width="80" sortBy="#{client.firsContact}">
                 <h:outputText value="#{client.firsContact}" style="text-align: center; display: block;">
                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
                 </h:outputText>
@@ -58,6 +71,67 @@
             <p:column headerText="Источник" sortBy="#{client.source}" filterBy="#{client.source}" filterMatchMode="contains">
                 <h:outputText value="#{client.source}"/>
             </p:column>
+
+            <p:rowExpansion>
+
+                <p:dataTable id="rowExpansionTable" value="#{client.messages}" var="cm" emptyMessage="..."
+                             sortBy="#{cm.date}" sortOrder="ascending"
+                >
+
+                    <f:facet name="header">
+                        <h:outputText value="Обращения клиента" style="float: center;"/>
+                    </f:facet>
+
+                    <p:column style="width:16px" exportable="false">
+                        <p:rowToggler/>
+                    </p:column>
+
+                    <p:column headerText="Дата обработки" width="143">
+                        <h:outputText value="#{cm.createDate}" style="text-align: center; display: block;">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Дата обращения" width="143">
+                        <h:outputText value="#{cm.date}" style="text-align: center; display: block;">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column headerText="Телефон">
+                        <h:outputText value="#{cm.phone}"/>
+                    </p:column>
+
+                    <p:column headerText="Имя">
+                        <h:outputText value="#{cm.clientName}"/>
+                    </p:column>
+                    1
+                    <p:column headerText="Регион">
+                        <h:outputText value="#{cm.region}"/>
+                    </p:column>
+
+                    <p:column headerText="Источник">
+                        <h:outputText value="#{cm.source}"/>
+                    </p:column>
+
+                    <p:column headerText="roistatid">
+                        <h:outputText value="#{cm.roistatid}"/>
+                    </p:column>
+
+                    <p:column headerText="Решение программы">
+                        <h:outputText value="#{fc.br(cm.resolution)}" escape="false"/>
+                    </p:column>
+
+                    <p:rowExpansion>
+                        <h:outputText value="#{cm.messageBody}"/>
+                        <br/>
+                        <br/>
+                        <h:outputText value="#{cm.errorMessage}"/>
+                    </p:rowExpansion>
+
+                </p:dataTable>
+
+            </p:rowExpansion>
 
         </p:dataTable>
 

@@ -3,11 +3,15 @@ package ru.plastikam.mail.misc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.plastikam.mail.model.AbstractEntity;
 import ru.plastikam.mail.model.Region;
 import ru.plastikam.mail.receiver.AbstractService;
+import ru.plastikam.mail.repository.AbstractRepository;
+
+import java.util.List;
 
 @Service
-public class DictionaryFill extends AbstractService {
+public class DatabasePatches extends AbstractService {
 
     @Autowired
     ImportContacts importContacts;
@@ -37,13 +41,27 @@ public class DictionaryFill extends AbstractService {
         regionRepository.save(new Region("logistic", "Логистика", false));
         regionRepository.save(new Region("ok", "Отдел Кадров", false));
         regionRepository.save(new Region("ok.plastikam", "Отдел Кадров Mail.ru", false));
-
+        regionRepository.save(new Region("recover", "Заявки с сайта (с мая 2106)", false));
 
         importContacts.doImport();
     }
 
-    public void addNewRegion() {
-        regionRepository.save(new Region("recover", "Заявки с сайта (с мая 2106)", true));
-    }
+    @Autowired
+    List<AbstractRepository> repositoryList;
 
+    public void patchUpdatedDate() {
+        for (AbstractRepository<AbstractEntity> abstractRepository : repositoryList) {
+            logger.info("patchUpdatedDate " + abstractRepository.toString());
+            abstractRepository.findAll().
+                    forEach(e -> {
+                                System.out.print("`");
+                                if (e.getUpdateDate() == null) {
+                                    e.setUpdateDate(e.getCreateDate());
+                                    abstractRepository.save(e);
+                                }
+                            }
+                    );
+            System.out.println();
+        }
+    }
 }

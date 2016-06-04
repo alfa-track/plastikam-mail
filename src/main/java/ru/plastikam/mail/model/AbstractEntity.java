@@ -19,6 +19,10 @@ public abstract class AbstractEntity implements Serializable {
         return createDate;
     }
 
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
     public Date getUpdateDate() {
         return updateDate;
     }
@@ -49,6 +53,7 @@ public abstract class AbstractEntity implements Serializable {
     @PrePersist
     protected void onCreate() {
         createDate = new Date();
+        updateDate = new Date();
     }
 
     @PreUpdate

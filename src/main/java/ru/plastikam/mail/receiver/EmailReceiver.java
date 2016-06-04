@@ -172,6 +172,7 @@ public class EmailReceiver extends AbstractService {
 
         if (emailIn.getRegion().getMailPrefix().equals("recover")) {
             // Новое письмо с сайта
+            // Новый формат отменён
             String body = emailIn.getMessageBody().replaceAll("\\[", "\n[");
             cm.setEmail(Util.rget(body, "\\[EMAIL\\]:(.*)"));
             cm.setClientName(Util.rget(body, "\\[NAME\\]:(.*)"));
@@ -186,10 +187,12 @@ public class EmailReceiver extends AbstractService {
             }
         } else if (StringUtils.equalsIgnoreCase("noreply@megagroup.ru", emailIn.getSender())) {
             // Старое с сайта
+            // Рабочий формат
             cm.setEmail(Util.rget(emailIn.getMessageBody(), "Ваш email:(.*)", "Ваш e-mail:(.*)", "E-mail:(.*)"));
             cm.setClientName(Util.rget(emailIn.getMessageBody(), "Ваше имя:(.*)", "Название организации или Ваше имя:(.*)", "Как к Вам обращаться.:(.*)"));
-            cm.setSource("Заявка с сайта (Старая)");
+            cm.setSource("С сайта");
             cm.setPhone(Util.rget(emailIn.getMessageBody(), "Ваш телефон:(.*)", "Контактный телефон:(.*)"));
+            cm.setRoistatid(Util.rget(emailIn.getMessageBody(), "\\[ROISTATID\\]:(.*)"));
         } else {
             // Письмо с простой и корпоративной почты
             cm.setEmail(emailIn.getSender());
